@@ -22,23 +22,55 @@ class PageAnnouncer extends WP_Widget {
     }
 
     function form($instance) {
-        $defaults = array(
-            'text' => ''
-        );
+        if ($instance) {
+            $text = esc_textarea($instance['text']);
+            $link = esc_attr($instance['link']);
+            $title = esc_attr($instance['title']);
+            $image = esc_attr($instance['image']);
+        } else {
+            $title = '';
+            $link = '';
+            $image = '';
+            $text = '';
+        }
 
-        $text = esc_textarea($instance['text']);
         ?>
         <p>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', page_announcer);?></label>
+            <input class="widefat" type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $title;?>" >
+        </p>
+        <p>
             <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Text:', page_announcer);?></label>
-            <textarea class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $textarea;?></textarea>
+            <textarea class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text;?></textarea>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('image'); ?>"><?php _e('Image:', page_announcer);?></label>
+            <input class="widefat" type="text" id="<?php echo $this->get_field_id('image'); ?>" name="<?php echo $this->get_field_name('image'); ?>" value="<?php echo $image;?>" >
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Target page:', page_announcer);?></label>
+            <?php
+                wp_dropdown_pages(array(
+                    'id' => $this->get_field_id('link'),
+                    'name' => $this->get_field_name('link'),
+                    'selected' => $instance['link'],
+                    'class' => 'widefat'
+                ));
+            ?>
         </p>
         <?php
     }
 
-    function update( $new_instance, $old_instance ) {       
+    function update($new_instance, $old_instance) {       
+        $instance = $old_instance;
+        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['text'] = strip_tags($new_instance['text']);
+        $instance['link'] = $new_instance['link'];
+        $instance['image'] = $new_instance['image'];
+        return $instance;
     }
 
-    function widget( $args, $instance ) {
+    function widget($args, $instance) {
     }
 }
 
