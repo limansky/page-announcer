@@ -53,7 +53,7 @@ class PageAnnouncer extends WP_Widget {
                 wp_dropdown_pages(array(
                     'id' => $this->get_field_id('link'),
                     'name' => $this->get_field_name('link'),
-                    'selected' => $instance['link'],
+                    'selected' => $link,
                     'class' => 'widefat'
                 ));
             ?>
@@ -74,10 +74,9 @@ class PageAnnouncer extends WP_Widget {
     }
 }
 
-function page_announcer_register() {
-    register_widget('PageAnnouncer');
-}
 
-add_action('widgets_init', 'page_announcer_register');
+add_action('widgets_init', function() {
+    register_widget('PageAnnouncer');
+});
 
 ?>
