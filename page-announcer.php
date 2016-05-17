@@ -71,6 +71,25 @@ class PageAnnouncer extends WP_Widget {
     }
 
     function widget($args, $instance) {
+        extract($args);
+        echo $before_widget;
+        $title = apply_filters('widget_title', $instance['title']);
+        $text = $instance['text'];
+        $image = $instance['image'];
+        $link = get_page_link($instance['link']);
+
+        if ($title) {
+            echo $before_title . $title . $after_title;
+        }
+
+        if ($link) echo '<a href="' . $link .'" class="widget_page_announcer_link">';
+        if ($image) echo '<img src="' . $image . '">';
+        if ($text) echo '<p class="widget_page_announcer_text">' . $text . '</p>';
+        if ($link) echo '</a>';
+
+        ?>
+        <?php
+        echo $after_widget;
     }
 }
 
