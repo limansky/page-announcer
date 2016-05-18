@@ -23,6 +23,12 @@ class PageAnnouncer extends WP_Widget {
         add_action('wp_enqueue_scripts', function() {
             wp_enqueue_style('page_announcer_widget_css', plugins_url('page-announcer.css', __FILE__));
         });
+
+        add_action('admin_enqueue_scripts', function() {
+            wp_enqueue_script('media-upload');
+            wp_enqueue_media();
+            wp_enqueue_script('page_announcer_widget_admin_js', plugins_url('page-announcer-admin.js', __FILE__));
+        });
     }
 
     function form($instance) {
@@ -50,6 +56,7 @@ class PageAnnouncer extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('image'); ?>"><?php _e('Image:', page_announcer);?></label>
             <input class="widefat" type="text" id="<?php echo $this->get_field_id('image'); ?>" name="<?php echo $this->get_field_name('image'); ?>" value="<?php echo $image;?>" >
+            <button class="button button-primary page-announcer-load-image-button">Upload</button>
         </p>
         <p>
             <label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Target page:', page_announcer);?></label>
@@ -86,8 +93,8 @@ class PageAnnouncer extends WP_Widget {
             echo $before_title . $title . $after_title;
         }
 
-        if ($link) echo '<a href="' . $link .'" class="widget_page_announcer_link">';
-        if ($image) echo '<img src="' . $image . '">';
+        if ($link) echo '<a href="' . esc_url($link) .'" class="widget_page_announcer_link">';
+        if ($image) echo '<img src="' . esc_url($image) . '" class="widget_page_announcer_image_circle">';
         if ($text) echo '<p class="widget_page_announcer_text">' . $text . '</p>';
         if ($link) echo '</a>';
 

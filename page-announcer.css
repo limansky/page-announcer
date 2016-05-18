@@ -1,1 +1,2 @@
 a.widget_page_announcer_link:visited, a.widget_page_announcer_link:link { color: inherit; text-decoration: none; }
+img.widget_page_announcer_image_circle { border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; }
