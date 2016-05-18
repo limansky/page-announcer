@@ -19,6 +19,10 @@ class PageAnnouncer extends WP_Widget {
                 'description' => __('Shows announce for a page as a text and image. E.g. to about page.', 'page_announcer')
             )
         );
+
+        add_action('wp_enqueue_scripts', function() {
+            wp_enqueue_style('page_announcer_widget_css', plugins_url('page-announcer.css', __FILE__));
+        });
     }
 
     function form($instance) {
