@@ -1,2 +1,10 @@
 a.widget_page_announcer_link:visited, a.widget_page_announcer_link:link { color: inherit; text-decoration: none; }
-img.widget_page_announcer_image_circle { border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; }
+a.widget_page_announcer_link:hover { text-decoration: underline; }
+img.widget_page_announcer_image_circle {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
