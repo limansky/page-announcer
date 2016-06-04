@@ -8,6 +8,7 @@ Author:      Mike Limansky
 Author URI:  http://www.limansky.me
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Domain Path: /languages
 */
 
 class PageAnnouncer extends WP_Widget {
