@@ -22,9 +22,9 @@ class PageAnnouncer extends WP_Widget {
     function __construct() {
         parent::__construct(
             'page_announcer_widget',
-            __('Page Announcer', 'page_announcer'),
+            __('Page Announcer', 'page-announcer'),
             array(
-                'description' => __('Shows announce for a page as a text and image. E.g. to about page.', 'page_announcer')
+                'description' => __('Shows announce for a page as a text and image. E.g. to about page.', 'page-announcer')
             )
         );
 
@@ -36,6 +36,10 @@ class PageAnnouncer extends WP_Widget {
             wp_enqueue_script('media-upload');
             wp_enqueue_media();
             wp_enqueue_script('page_announcer_widget_admin_js', plugins_url('page-announcer-admin.js', __FILE__));
+        });
+
+        add_action('init', function() {
+            $l = load_plugin_textdomain('page-announcer', FALSE, basename(dirname(__FILE__) ) . '/languages/');
         });
     }
 
@@ -56,32 +60,32 @@ class PageAnnouncer extends WP_Widget {
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', page_announcer);?></label>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'page-announcer');?></label>
             <input class="widefat" type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $title;?>" >
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Text:', page_announcer);?></label>
+            <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Text:', 'page-announcer');?></label>
             <textarea class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text;?></textarea>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id('image'); ?>"><?php _e('Image:', page_announcer);?></label>
+            <label for="<?php echo $this->get_field_id('image'); ?>"><?php _e('Image:', 'page-announcer');?></label>
             <input class="widefat" type="text" id="<?php echo $this->get_field_id('image'); ?>" name="<?php echo $this->get_field_name('image'); ?>" value="<?php echo $image;?>" >
-            <button class="button button-primary page-announcer-load-image-button">Upload</button>
+            <button class="button button-primary page-announcer-load-image-button"><?php _e('Upload', 'page-announcer'); ?></button>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id('image_style'); ?>"><?php _e('Image style:', page_announcer);?></label>
+            <label for="<?php echo $this->get_field_id('image_style'); ?>"><?php _e('Image style:', 'page-announcer');?></label>
             <select class="widefat" id="<?php echo $this->get_field_id('image_style'); ?>" name=<?php echo $this->get_field_name('image_style'); ?>" >
                 <?php
                     foreach (self::IMAGE_STYLES as $style => $meta) {
                         echo '<option value="' . $style . '"';
                         if ($image_style == $style) echo ' selected ';
-                        echo '>' . __($meta[0], page_announcer) . '</option>';
+                        echo '>' . __($meta[0], 'page-announcer') . '</option>';
                     }
                 ?>
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Target page:', page_announcer);?></label>
+            <label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Target page:', 'page-announcer');?></label>
             <?php
                 wp_dropdown_pages(array(
                     'id' => $this->get_field_id('link'),
