@@ -39,7 +39,7 @@ class PageAnnouncer extends WP_Widget {
         });
 
         add_action('init', function() {
-            $l = load_plugin_textdomain('page-announcer', FALSE, basename(dirname(__FILE__) ) . '/languages/');
+            load_plugin_textdomain('page-announcer', FALSE, basename(dirname(__FILE__) ) . '/languages/');
         });
     }
 
